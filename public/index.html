@@ -13,13 +13,14 @@
         <div id="messages"></div>
         <br/>
         <form onsubmit="return addMessage(this)">
-        <input type="text" id="numero" placeholder="Ingrese un dato">
+        <input type="number" id="numero" placeholder="Ingrese un dato">
         <input type="submit" value="Enviar!">
-        <p><button type="button" onclick="addMessage()">Generar número aleatorio</button></p>
+        <p><button type="button" onclick="addMessage(Math.floor(Math.random() * (1000 - 1) + 1), true)">Generar número aleatorio</button></p>
         <br/>
-        <input type="submit" value="Graficar!">
+        <p><button type="button" onclick=" makegraphic()">Graficar</button></p>
 
         </form>
+        <div id="graphic"></div>
         <!--
         <p><button type="button" onclick="addMessage('alto')">Disminuir presion</button></p>
         <p><button type="button" onclick="addMessage('bajo')">Aumentar presion</button></p>
