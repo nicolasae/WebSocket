@@ -9,8 +9,18 @@
     </head>
     <body>
         <h1>Nuestra Aplicación</h1>
+        <h2>Número Aleatorio de Prueba:</h2>
         <div id="messages"></div>
+        <br/>
+        <form onsubmit="return addMessage(this)">
+        <input type="text" id="numero" placeholder="Ingrese un dato">
+        <input type="submit" value="Enviar!">
+
+        </form>
+        <!--
         <p><button type="button" onclick="addMessage('alto')">Disminuir presion</button></p>
         <p><button type="button" onclick="addMessage('bajo')">Aumentar presion</button></p>
+        -->
     </body>
 </html>
+
