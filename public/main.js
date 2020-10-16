@@ -10,17 +10,17 @@ socket.on('messages',function(data){
 function render (data) {
     var html = data.map(function(elem, index) {
         return(`<div>
-                  <strong>${elem.id}</strong>:
-                  <em>${elem.text}</em>
+                  <strong>${elem.state}</strong>:
+                  <em>${elem.res}</em>
                 </div>`);
     }).join(" ");
     document.getElementById('messages').innerHTML = html;
 }
 
-function addMessage(e) {
+function addMessage(respuesta) {
       var message = {
-        id: document.getElementById('id').value,
-        text: document.getElementById('texto').value
+        state: 500,
+        res: respuesta 
     };
     
     socket.emit('new-message', message);

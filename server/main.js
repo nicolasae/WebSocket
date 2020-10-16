@@ -13,8 +13,7 @@ app.get('/',function(req,res){
     res.status(200).send('Hola mundo');
 });
 var messages = [{
-    id: 1,
-    text: random(),
+    state: random(),
     res: " "
     }];
 
