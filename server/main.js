@@ -4,6 +4,7 @@ var app = express();
 El framework es express*/ 
 var server = require ('http').Server(app);
 var io = require ('socket.io')(server);
+var Chart = require ('chart.js');
 
 
 app.use(express.static('public'))
@@ -40,6 +41,44 @@ function randomInt(low, high) {
     return Math.floor(Math.random() * (high - low) + low)
 };
 
+function graficar(lista){
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 19, 3, 5, 2, 3],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+};
 /*Se verifica el funcionamiento del servidor, puerto 8080*/
 server.listen(8080,function(){
     console.log('Servidor corriendo en http://localhost:8080')
