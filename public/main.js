@@ -27,3 +27,12 @@ function addMessage(respuesta) {
     return false;
 }
 
+function makegraphic(respuesta) {
+    var message = {
+      state: 500,
+      res: respuesta 
+  };
+  
+  socket.emit('new-graphic', message);
+  return false;
+}
