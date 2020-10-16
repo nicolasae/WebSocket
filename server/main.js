@@ -15,7 +15,8 @@ app.get('/',function(req,res){
 });
 var messages = [{
     state: random(),
-    res: " "
+    res: 0,
+    data: 0
     }];
 
 /*con el comando on se le dice que escuche algo del navegador o del serivor*/
@@ -25,6 +26,10 @@ io.on('connection',function(socket){
     socket.on('new-message', function(data) {
         messages.push(data);    
     io.sockets.emit('messages', messages);
+    });
+    socket.on('new-graphic', function(data) {
+        chart = graficar(data);    
+    io.sockets.emit('graphic', chart )
     });
 });
 function random(res){
@@ -43,12 +48,12 @@ function randomInt(low, high) {
 
 function graficar(lista){
     var myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
                 label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
+                data: lista,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -78,6 +83,7 @@ function graficar(lista){
             }
         }
     });
+    return chart;
 };
 /*Se verifica el funcionamiento del servidor, puerto 8080*/
 server.listen(8080,function(){
