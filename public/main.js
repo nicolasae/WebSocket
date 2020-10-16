@@ -9,9 +9,10 @@ socket.on('messages',function(data){
 
 function render (data) {
     var html = data.map(function(elem, index) {
+        //<em>${elem.res}</em>
         return(`<div>
                   <strong>${elem.state}</strong>:
-                  <em>${elem.res}</em>
+                 
                 </div>`);
     }).join(" ");
     document.getElementById('messages').innerHTML = html;
@@ -19,7 +20,7 @@ function render (data) {
 
 function addMessage(respuesta) {
       var message = {
-        state: 500,
+        state: document.getElementById('numero').value,
         res: respuesta 
     };
     
