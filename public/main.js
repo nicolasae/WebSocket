@@ -1,30 +1,35 @@
-var Chart = require('chart.js');
+//var Chart = require('chart.js');
 /*conectamos el cliente con el servidor de websocket*/
 var socket = io.connect('http://localhost:8080',{'forceNew':true});
 
-var datos = [];
+var set = []
 
 /*recibiendo mensajes*/
-socket.on('messages',function(data){
-    console.log(data);
-    render(data);
-    datos.push(data.state);
-    console.log(datos);
+socket.on('messages',function(messages){
+    console.log(messages);
+    set = messages;
+    //console.log(set);
+    render(messages);
     //console.log(typeof data.state)
 });
 
-socket.on('graphic',function(data){
-    graficador(data);
+socket.on('graphic',function(messages){
+    //console.log(messages.data);
+    graficador(messages);
 });
-
-function graficador(data){
-    var myChart = new Chart(document.getElementById('myChart'), {
-        type: 'bar',
+function graficador(message){
+    var labels01 = [];
+    for(var i = 0; i < messages.length; i++){
+        labels01.push(String(messages[i]))
+    };
+    var ctx = document.getElementById("myChart");
+    var myChart = new Chart(ctx ,{
+        type: 'line',
         data: {
             labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
             datasets: [{
-                label: '# of Votes',
-                data: data.data,
+                label: 'Nuestra primera grafica',
+                data: message,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -54,6 +59,7 @@ function graficador(data){
             }
         }
     });
+    //return <div className="chartjs-wrapper"><canvas id="myChart" className="chartjs"></canvas></div>;
 }
 
 function render (data) {
@@ -73,7 +79,6 @@ function addMessage(respuesta,boton) {
     }else {
       var message = {
         state: document.getElementById('numero').value,
-        res: respuesta 
     }};
     
     socket.emit('new-message', message);
@@ -81,9 +86,12 @@ function addMessage(respuesta,boton) {
 }
 
 function makegraphic() {
-var message = {
-    data : datos
-}
-  socket.emit('new-graphic', message);
+    var data = [];
+    for(const i in set){
+        data.push(set[i].state);
+    }
+    console.log(data)
+
+  socket.emit('new-graphic', data);
   return false;
 }

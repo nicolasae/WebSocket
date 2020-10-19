@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <title>My aplicación con Sockets</title>
         <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="main.js"></script>
     </head>
     <body>
@@ -18,13 +19,40 @@
         <p><button type="button" onclick="addMessage(Math.floor(Math.random() * (1000 - 1) + 1), true)">Generar número aleatorio</button></p>
         <br/>
         <p><button type="button" onclick=" makegraphic()">Graficar</button></p>
-
+        <div>
+            <canvas id="myChart" width = "600" heigth = "400"></canvas>
+        </div>
         </form>
-        <canvas id="myChart" width="400" height="400"></canvas>
         <!--
         <p><button type="button" onclick="addMessage('alto')">Disminuir presion</button></p>
         <p><button type="button" onclick="addMessage('bajo')">Aumentar presion</button></p>
         -->
     </body>
+    <script>
+        function example() {
+        useEffect(() => {
+            var ctx = document.getElementById('myChart').getContext('2d');
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'line',
+
+                // The data for our dataset
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                        label: 'My First dataset',
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        borderColor: 'rgb(255, 99, 132)',
+                        data: [0, 10, 5, 2, 20, 30, 45]
+                    }]
+                },
+
+                // Configuration options go here
+                options: {}
+            });
+        });
+        return <div className="chartjs-wrapper"><canvas id="myChart" className="chartjs"></canvas></div>;
+}
+    </script>
 </html>
 

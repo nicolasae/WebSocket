@@ -14,9 +14,7 @@ app.get('/',function(req,res){
     res.status(200).send('Hola mundo');
 });
 var messages = [{
-    state: random(),
-    res: 0,
-    data: 0
+    state: 0,
     }];
 
 /*con el comando on se le dice que escuche algo del navegador o del serivor*/
@@ -27,8 +25,8 @@ io.on('connection',function(socket){
         messages.push(data);    
     io.sockets.emit('messages', messages);
     });
-    socket.on('new-graphic', function(data) {    
-    io.sockets.emit('graphic', data )
+    socket.on('new-graphic', function(data) { 
+        io.sockets.emit('graphic', data )
     });
 });
 function random(res){
@@ -44,7 +42,6 @@ return (randomInt( 1, 1000));
 function randomInt(low, high) {
     return Math.floor(Math.random() * (high - low) + low)
 };
-
 
 /*Se verifica el funcionamiento del servidor, puerto 8080*/
 server.listen(8080,function(){
