@@ -15,6 +15,7 @@ app.get('/',function(req,res){
 });
 var messages = [{
     state: 0,
+    author: ""
     }];
 
 /*con el comando on se le dice que escuche algo del navegador o del serivor*/
@@ -29,15 +30,6 @@ io.on('connection',function(socket){
         io.sockets.emit('graphic', data )
     });
 });
-function random(res){
-if (res == "bajo" ){
-    return (randomInt( 500, 1000))
-};
-if ( res == "alto" ){
-    return (randomInt( 1, 500))
-};
-return (randomInt( 1, 1000));
-};
 
 function randomInt(low, high) {
     return Math.floor(Math.random() * (high - low) + low)

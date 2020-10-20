@@ -3,6 +3,8 @@
 var socket = io.connect('http://localhost:8080',{'forceNew':true});
 
 var set = []
+var users = []
+var nombre = false
 
 /*recibiendo mensajes*/
 socket.on('messages',function(messages){
@@ -26,10 +28,10 @@ function graficador(message){
     var myChart = new Chart(ctx ,{
         type: 'line',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: message.labels,
             datasets: [{
                 label: 'Nuestra primera grafica',
-                data: message,
+                data: message.data,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -85,10 +87,18 @@ function addMessage(respuesta,boton) {
     return false;
 }
 
+function ususarios(respuesta){
+    users.push(respuesta);
+};
+
 function makegraphic() {
-    var data = [];
+    var data = {
+        data: [],
+        labels: []
+    };
     for(const i in set){
-        data.push(set[i].state);
+        data.data.push(set[i].state);
+        data.labels.push(String(set[i].state))
     }
     console.log(data)
 
