@@ -1,11 +1,13 @@
-//var Chart = require('chart.js');
+//******************************************************** */
+//******************************************************** */
+//******************************************************** */
+//******************************************************** */
+//******************************************************** */
 /*conectamos el cliente con el servidor de websocket*/
 var socket = io.connect('http://localhost:8080',{'forceNew':true});
 
-var set = []
-var users = []
-var nombre = false
 
+var set = []
 /*recibiendo mensajes*/
 socket.on('messages',function(messages){
     console.log(messages);
@@ -107,9 +109,6 @@ function addMessage(state,boton) {
     return false;
 }
 
-function ususarios(respuesta){
-    users.push(respuesta);
-};
 
 function makegraphic() {
     var data = {

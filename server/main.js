@@ -31,10 +31,6 @@ io.on('connection',function(socket){
     });
 });
 
-function randomInt(low, high) {
-    return Math.floor(Math.random() * (high - low) + low)
-};
-
 /*Se verifica el funcionamiento del servidor, puerto 8080*/
 server.listen(8080,function(){
     console.log('Servidor corriendo en http://localhost:8080')
