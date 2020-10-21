@@ -15,7 +15,7 @@ app.get('/',function(req,res){
 });
 var messages = [{
     state: 0,
-    author: ""
+    author: "admin"
     }];
 
 /*con el comando on se le dice que escuche algo del navegador o del serivor*/

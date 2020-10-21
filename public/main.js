@@ -20,11 +20,25 @@ socket.on('graphic',function(messages){
     graficador(messages);
 });
 function graficador(message){
-    var labels01 = [];
-    for(var i = 0; i < messages.length; i++){
-        labels01.push(String(messages[i]))
+    var data1 = [];
+    var author1=[];
+    var data2 = [];
+    var author2 = [];
+    author1.push(message.labels[1]);
+    for(const i in message.labels){
+       if (message.labels[i]== author1[0]) {
+           data1.push(message.data[i]);
+           author1.push(message.labels[i]);
+       };
+        if (message.labels[i]!= author1[0]) {
+            data2.push(message.data[i]);
+            author2.push(message.labels[i]);
+        };
     };
+    author1.pop();
     var ctx = document.getElementById("myChart");
+    var ctx2 = document.getElementById("myChart2");
+    var ctx3 = document.getElementById("myChart3");
     var myChart = new Chart(ctx ,{
         type: 'line',
         data: {
@@ -32,34 +46,37 @@ function graficador(message){
             datasets: [{
                 label: 'Nuestra primera grafica',
                 data: message.data,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                fill: false,
+                borderColor: ['rgba(0,255,0, 1)'],
                 borderWidth: 1
             }]
         },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
+    });
+    var myChart2 = new Chart(ctx2 ,{
+        type: 'line',
+        data: {
+            labels: author1,
+            datasets: [{
+                label: 'Grafica de: ',
+                data: data1,
+                fill: false,
+                borderColor: ['rgba(255,0,0, 1)'],
+                borderWidth: 1
+            }]
+        },
+    });
+    var myChart3 = new Chart(ctx3 ,{
+        type: 'line',
+        data: {
+            labels: author2,
+            datasets: [{
+                label: 'Nuestra primera grafica',
+                data: data2,
+                fill: false,
+                borderColor: ['rgba(0,0,255, 1)'],
+                borderWidth: 1
+            }]
+        },
     });
     //return <div className="chartjs-wrapper"><canvas id="myChart" className="chartjs"></canvas></div>;
 }
@@ -67,20 +84,23 @@ function graficador(message){
 function render (data) {
     var html = data.map(function(elem, index) {
         return(`<div>
-                  <strong>${elem.state}</strong>:
+                  <strong>${elem.author}</strong>:
+                  <strong>${elem.state}</strong>
                 </div>`);
     }).join(" ");
     document.getElementById('messages').innerHTML = html;
 }
 
-function addMessage(respuesta,boton) {
+function addMessage(state,boton) {
     if (boton == true ){
         var message = {
-            state: respuesta 
+            state: state,
+            author: document.getElementById('autor').value
         };  
     }else {
       var message = {
-        state: document.getElementById('numero').value,
+          state: document.getElementById('numero').value,
+          author: document.getElementById('autor').value
     }};
     
     socket.emit('new-message', message);
@@ -98,7 +118,7 @@ function makegraphic() {
     };
     for(const i in set){
         data.data.push(set[i].state);
-        data.labels.push(String(set[i].state))
+        data.labels.push((set[i].author))
     }
     console.log(data)
 
