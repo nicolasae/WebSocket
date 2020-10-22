@@ -41,6 +41,7 @@ function graficador(message){
     var ctx = document.getElementById("myChart");
     var ctx2 = document.getElementById("myChart2");
     var ctx3 = document.getElementById("myChart3");
+    var ctx4 = document.getElementById("myChart4");
     var myChart = new Chart(ctx ,{
         type: 'line',
         data: {
@@ -59,7 +60,7 @@ function graficador(message){
         data: {
             labels: author1,
             datasets: [{
-                label: 'Grafica de: ',
+                label: 'Grafica 1',
                 data: data1,
                 fill: false,
                 borderColor: ['rgba(255,0,0, 1)'],
@@ -72,10 +73,29 @@ function graficador(message){
         data: {
             labels: author2,
             datasets: [{
-                label: 'Nuestra primera grafica',
+                label: 'Grafica 2',
                 data: data2,
                 fill: false,
                 borderColor: ['rgba(0,0,255, 1)'],
+                borderWidth: 1
+            }]
+        },
+    });
+    var myChart4 = new Chart(ctx4 ,{
+        type: 'line',
+        data: {
+            labels: author1,
+            datasets: [{
+                label: author1[1],
+                data: data1,
+                fill: false,
+                borderColor: ['rgba(255,0,0, 1)'],
+                borderWidth: 1
+            },{
+                label: author2[1],
+                data: data2,
+                fill: false,
+                borderColor: ['rgba(0,255,0, 1)'],
                 borderWidth: 1
             }]
         },
